@@ -360,11 +360,16 @@ function showComments(professor) {
     commentsModal.style.display = 'flex';
 }
 
+// Función para quitar acentos/diacríticos
+function removeDiacritics(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 // Función para filtrar los datos
 function filterData() {
     const semester = semesterSelect.value;
     const group = groupSelect.value;
-    const searchTerm = searchInput.value.toLowerCase();
+    const searchTerm = removeDiacritics(searchInput.value.toLowerCase());
 
     const combinedData = combineScheduleAndEvaluations();
 
@@ -383,8 +388,8 @@ function filterData() {
     // Filtrar por término de búsqueda
     if (searchTerm) {
         filteredData = filteredData.filter(item =>
-            item.professor.toLowerCase().includes(searchTerm) ||
-            item.subject.toLowerCase().includes(searchTerm)
+            removeDiacritics(item.professor.toLowerCase()).includes(searchTerm) ||
+            removeDiacritics(item.subject.toLowerCase()).includes(searchTerm)
         );
     }
 
