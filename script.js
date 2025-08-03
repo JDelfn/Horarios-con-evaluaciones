@@ -440,3 +440,4 @@ async function initApp() {
 
 // Iniciar la aplicación cuando se cargue la página
 window.addEventListener('DOMContentLoaded', initApp);
+
