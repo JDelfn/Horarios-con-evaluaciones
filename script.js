@@ -288,12 +288,17 @@ function renderTable(data) {
         const row = document.createElement('tr');
 
         // Aplicar color de fondo según el rating
-        if (item.rating >= 4.0) {
-            row.style.backgroundColor = 'rgba(46, 204, 113, 0.1)';
-        } else if (item.rating >= 2.5) {
-            row.style.backgroundColor = 'rgba(243, 156, 18, 0.1)';
-        } else {
-            row.style.backgroundColor = 'rgba(231, 76, 60, 0.1)';
+        if (item.rating === 0) {
+    row.style.backgroundColor = ''; // Fondo blanco (elimina cualquier estilo previo)
+            } else if (item.rating >= 4.0) {
+    row.style.backgroundColor = 'rgba(46, 204, 113, 0.1)';
+            } else if (item.rating >= 2.5) {
+    row.style.backgroundColor = 'rgba(243, 156, 18, 0.1)';
+            } else if (item.rating >= 0.1) {
+    row.style.backgroundColor = 'rgba(231, 76, 60, 0.1)';
+            } else {
+    // Para valores menores a 0.1 (incluyendo negativos) o undefined
+    row.style.backgroundColor = ''; // Fondo blanco
         }
 
         row.innerHTML = `
@@ -445,4 +450,5 @@ async function initApp() {
 
 // Iniciar la aplicación cuando se cargue la página
 window.addEventListener('DOMContentLoaded', initApp);
+
 
